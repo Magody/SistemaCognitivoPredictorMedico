@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Ingresar Datos</h2>
+<form method="POST" class="form-container">
+    <div class="form-column">
+        {% for feat in features[:(features|length)//2] %}
+        <div class="form-group">
+            <label for="{{feat}}">{{feat}}:</label>
+            <input type="number" step="0.01" name="{{feat}}" id="{{feat}}" value="0.5" min="0" max="1">
+            <input type="range" name="{{feat}}" id="{{feat}}_slider" value="0.5" min="0" max="1" step="0.01" 
+                oninput="document.getElementById('{{feat}}').value=this.value" 
+                onchange="document.getElementById('{{feat}}').value=this.value">
+        </div>
+        {% endfor %}
+    </div>
+    <div class="form-column">
+        {% for feat in features[(features|length)//2:] %}
+        <div class="form-group">
+            <label for="{{feat}}">{{feat}}:</label>
+            <input type="number" step="0.01" name="{{feat}}" id="{{feat}}" value="0.5" min="0" max="1">
+            <input type="range" name="{{feat}}" id="{{feat}}_slider" value="0.5" min="0" max="1" step="0.01" 
+                oninput="document.getElementById('{{feat}}').value=this.value" 
+                onchange="document.getElementById('{{feat}}').value=this.value">
+        </div>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Diagnosticar" class="submit-btn">
+    </div>
+</form>
+
+<div class="form-group">
+    <a href="{{ url_for('mass_predictions') }}" class="secondary-btn">Usar predicciones masivas</a>
+</div>
+{% endblock %}

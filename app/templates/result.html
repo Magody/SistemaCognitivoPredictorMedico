@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Resultado del Diagnóstico</h2>
+<p>El diagnóstico es: <strong>{{ diagnosis }}</strong></p>
+
+<h2>Explicación del Diagnóstico</h2>
+<p>
+    A continuación, se muestra la importancia de cada parámetro en la predicción. El gráfico de tipo <strong>waterfall</strong> explica cómo las características individuales contribuyen al resultado final del modelo:
+</p>
+<ul>
+    <li><strong>f(x)</strong> representa la predicción final del modelo para el caso dado (ej. 0.262 en este ejemplo).</li>
+    <li><strong>Glucose</strong>, <strong>Hemoglobin</strong>, etc., son las características (o factores) del paciente.</li>
+    <li>Las barras <strong>rojas</strong> indican que la característica aumenta la probabilidad hacia la predicción final.</li>
+    <li>Las barras <strong>azules</strong> indican que la característica reduce la probabilidad hacia la predicción final.</li>
+    <li>El punto de inicio (<strong>expected value</strong>) es el valor promedio esperado para el modelo, y cada barra desplaza este valor hacia el diagnóstico final.</li>
+</ul>
+<img src="{{ url_for('static', filename='shap_plot.png') }}" alt="SHAP Explanation" style="max-width:100%; height:auto;">
+
+<a href="{{ url_for('index') }}">Volver al inicio</a>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Resultados de las Predicciones</h2>
+
+<form method="POST" enctype="multipart/form-data" class="form-container">
+    <div class="form-group">
+        <label for="file">Seleccione un archivo CSV:</label>
+        <input type="file" name="file" id="file" accept=".csv">
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Cargar y Predecir" class="submit-btn">
+    </div>
+</form>
+
+{% if predictions %}
+<h3>Resultados de las Predicciones</h3>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Diagnóstico</th>
+                {% for feat in predictions[0]["input_data"].keys() %}
+                <th>{{ feat }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for pred in predictions %}
+            <tr class="diagnosis-{{ pred['diagnosis']|lower }}">
+                <td><strong>{{ pred["diagnosis"] }}</strong></td>
+                {% for value in pred["input_data"].values() %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<a href="{{ url_for('index') }}">Volver al inicio</a>
+{% endblock %}
